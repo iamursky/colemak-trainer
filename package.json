@@ -1,0 +1,29 @@
+{
+  "name": "typing.man",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "@emotion/react": "11.10.5",
+    "@emotion/server": "11.10.0",
+    "@mantine/core": "5.9.4",
+    "@mantine/hooks": "5.9.4",
+    "@mantine/next": "5.9.4",
+    "@mantine/notifications": "5.9.4",
+    "@tabler/icons": "1.117.0",
+    "random-words": "1.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "18.11.15",
+    "@types/react-dom": "18.0.9",
+    "@types/react": "18.0.26",
+    "eslint-config-next": "13.0.6",
+    "eslint": "8.29.0",
+    "typescript": "4.9.4"
+  }
+}
