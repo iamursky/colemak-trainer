@@ -1,62 +1,32 @@
-import type { FC } from "react";
 import type { MantineTheme } from "@mantine/core";
 
 import { createStyles, Text } from "@mantine/core";
-import { useCallback, useEffect, useMemo, useState } from "react";
-import randomWords from "random-words";
+import { useEffect } from "react";
+import { useTraining } from "@/states/training";
 
-export const Trainer: FC = () => {
-  const { classes, cx } = useStyles();
-
-  const [started, setStarted] = useState<boolean>(false);
-  const [currentChar, setCurrentChar] = useState<string>("");
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
-  const [text, setText] = useState<string>("");
-
-  const textArray = useMemo(() => Array.from(text), [text]);
-
-  const reset = useCallback(() => {
-    setText(randomWords({ exactly: 1 }).join(" "));
-    setCurrentIndex(0);
-  }, []);
-
-  // prettier-ignore
-  const handleKeyPress = useCallback((event: KeyboardEvent) => {
-    if (event.key === "Enter" || event.key === " ") {
-      setCurrentIndex(0);
-      return setStarted(false);
-    }
-    
-    if (!started) setStarted(true);
-    if (currentChar !== event.key) return;
-
-    setCurrentIndex((index) => Math.min(index + 1, text.length));
-  }, [started, currentChar, text.length]);
+export default function Trainer() {
+  const { classes } = useStyles();
+  const training = useTraining();
 
   useEffect(() => {
-    setCurrentChar(text[currentIndex]);
-    if (currentIndex >= text.length) reset();
-  }, [text, currentIndex, reset]);
-
-  useEffect(() => {
-    document.addEventListener("keypress", handleKeyPress);
-    return () => document.removeEventListener("keypress", handleKeyPress);
-  }, [handleKeyPress]);
+    document.addEventListener("keypress", training.handleKeyPress);
+    return () => document.removeEventListener("keypress", training.handleKeyPress);
+  });
 
   return (
     <Text className={classes.text}>
-      {textArray.map((char, index) => (
+      {training.chars.map((char, index) => (
         <Text
           key={`${char}@${index}`}
           className={classes.char}
-          sx={(theme) => ({ color: getCharColor(index, currentIndex, theme) })}
+          sx={(theme) => ({ color: getCharColor(index, training.index, theme) })}
         >
           {char}
         </Text>
       ))}
     </Text>
   );
-};
+}
 
 const useStyles = createStyles((theme) => ({
   text: {

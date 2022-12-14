@@ -1,8 +1,9 @@
 import type { FC } from "react";
 
 import { createStyles } from "@mantine/core";
-import { KeyboardButton } from "@/components/keyboard-button";
-import { useEffect, useState } from "react";
+import { KeyboardButton } from "@/containers/keyboard-button";
+import { useEffect } from "react";
+import { useKeyboard } from "@/states/keyboard";
 
 export type TKeyboardProps = {
   className?: string;
@@ -10,75 +11,62 @@ export type TKeyboardProps = {
 
 export const Keyboard: FC<TKeyboardProps> = ({ className }) => {
   const { classes, cx } = useStyles();
-
-  const [keyStates, setKeyStates] = useState<Record<string, boolean>>({});
+  const keyboard = useKeyboard();
 
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      setKeyStates((states) => ({ ...states, [e.key]: true }));
-    };
-
-    const handleKeyUp = (e: KeyboardEvent) => {
-      setKeyStates((states) => ({ ...states, [e.key]: false }));
-    };
-
-    document.addEventListener("keydown", handleKeyDown);
-    document.addEventListener("keyup", handleKeyUp);
+    document.addEventListener("keydown", keyboard.handleKeyDown);
+    document.addEventListener("keyup", keyboard.handleKeyUp);
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
-      document.removeEventListener("keyup", handleKeyUp);
+      document.removeEventListener("keydown", keyboard.handleKeyDown);
+      document.removeEventListener("keyup", keyboard.handleKeyUp);
     };
   });
 
   return (
     <div className={cx(classes.keyboard, className)}>
       <div className={classes.left}>
-        <KeyboardButton keyboardKey="Q" active={isKeyDown(keyStates, "q")} />
-        <KeyboardButton keyboardKey="W" active={isKeyDown(keyStates, "w")} />
-        <KeyboardButton keyboardKey="F" active={isKeyDown(keyStates, "f")} />
-        <KeyboardButton keyboardKey="P" active={isKeyDown(keyStates, "p")} />
-        <KeyboardButton keyboardKey="B" active={isKeyDown(keyStates, "b")} />
+        <KeyboardButton keyboardKey="Q" />
+        <KeyboardButton keyboardKey="W" />
+        <KeyboardButton keyboardKey="F" />
+        <KeyboardButton keyboardKey="P" />
+        <KeyboardButton keyboardKey="B" />
 
-        <KeyboardButton keyboardKey="A" active={isKeyDown(keyStates, "a")} />
-        <KeyboardButton keyboardKey="R" active={isKeyDown(keyStates, "r")} />
-        <KeyboardButton keyboardKey="S" active={isKeyDown(keyStates, "s")} />
-        <KeyboardButton keyboardKey="T" active={isKeyDown(keyStates, "t")} />
-        <KeyboardButton keyboardKey="G" active={isKeyDown(keyStates, "g")} />
+        <KeyboardButton keyboardKey="A" />
+        <KeyboardButton keyboardKey="R" />
+        <KeyboardButton keyboardKey="S" />
+        <KeyboardButton keyboardKey="T" />
+        <KeyboardButton keyboardKey="G" />
 
-        <KeyboardButton keyboardKey="Z" active={isKeyDown(keyStates, "z")} />
-        <KeyboardButton keyboardKey="X" active={isKeyDown(keyStates, "x")} />
-        <KeyboardButton keyboardKey="C" active={isKeyDown(keyStates, "c")} />
-        <KeyboardButton keyboardKey="D" active={isKeyDown(keyStates, "d")} />
+        <KeyboardButton keyboardKey="Z" />
+        <KeyboardButton keyboardKey="X" />
+        <KeyboardButton keyboardKey="C" />
+        <KeyboardButton keyboardKey="D" />
         <KeyboardButton />
       </div>
 
       <div className={classes.right}>
-        <KeyboardButton keyboardKey="J" active={isKeyDown(keyStates, "j")} />
-        <KeyboardButton keyboardKey="L" active={isKeyDown(keyStates, "l")} />
-        <KeyboardButton keyboardKey="U" active={isKeyDown(keyStates, "u")} />
-        <KeyboardButton keyboardKey="Y" active={isKeyDown(keyStates, "y")} />
-        <KeyboardButton keyboardKey="K" active={isKeyDown(keyStates, "k")} />
+        <KeyboardButton keyboardKey="J" />
+        <KeyboardButton keyboardKey="L" />
+        <KeyboardButton keyboardKey="U" />
+        <KeyboardButton keyboardKey="Y" />
+        <KeyboardButton keyboardKey="K" />
 
-        <KeyboardButton keyboardKey="M" active={isKeyDown(keyStates, "m")} />
-        <KeyboardButton keyboardKey="N" active={isKeyDown(keyStates, "n")} />
-        <KeyboardButton keyboardKey="E" active={isKeyDown(keyStates, "e")} />
-        <KeyboardButton keyboardKey="I" active={isKeyDown(keyStates, "i")} />
-        <KeyboardButton keyboardKey="O" active={isKeyDown(keyStates, "o")} />
+        <KeyboardButton keyboardKey="M" />
+        <KeyboardButton keyboardKey="N" />
+        <KeyboardButton keyboardKey="E" />
+        <KeyboardButton keyboardKey="I" />
+        <KeyboardButton keyboardKey="O" />
 
         <KeyboardButton />
-        <KeyboardButton keyboardKey="H" active={isKeyDown(keyStates, "h")} />
-        <KeyboardButton keyboardKey="," active={isKeyDown(keyStates, ",")} />
-        <KeyboardButton keyboardKey="." active={isKeyDown(keyStates, ".")} />
-        <KeyboardButton keyboardKey="V" active={isKeyDown(keyStates, "v")} />
+        <KeyboardButton keyboardKey="H" />
+        <KeyboardButton keyboardKey="," />
+        <KeyboardButton keyboardKey="." />
+        <KeyboardButton keyboardKey="V" />
       </div>
     </div>
   );
 };
-
-function isKeyDown(keyStates: Record<string, boolean>, key: string) {
-  return keyStates[key] || keyStates[key.toUpperCase()];
-}
 
 const useStyles = createStyles(() => ({
   keyboard: {

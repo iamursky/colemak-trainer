@@ -1,6 +1,11 @@
 import { createStyles } from "@mantine/core";
 import { Keyboard } from "@/containers/keyboard";
-import { Trainer } from "@/containers/trainer";
+import dynamic from "next/dynamic";
+
+const Trainer = dynamic({
+  loader: () => import("@/containers/trainer"),
+  ssr: false,
+});
 
 export default function Page() {
   const { classes } = useStyles();
