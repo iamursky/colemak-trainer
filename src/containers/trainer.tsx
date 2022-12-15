@@ -1,10 +1,11 @@
+import type { FC } from "react";
 import type { MantineTheme } from "@mantine/core";
 
 import { createStyles, Text } from "@mantine/core";
 import { useEffect } from "react";
 import { useTraining } from "@/states/training";
 
-export default function Trainer() {
+export const Trainer: FC = () => {
   const { classes } = useStyles();
   const training = useTraining();
 
@@ -26,7 +27,7 @@ export default function Trainer() {
       ))}
     </Text>
   );
-}
+};
 
 const useStyles = createStyles((theme) => ({
   text: {
