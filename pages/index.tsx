@@ -1,16 +1,35 @@
-import { LoadingOverlay } from "@mantine/core";
-import { Suspense } from "react";
-import dynamic from "next/dynamic";
+import { createStyles } from "@mantine/core";
+import { Keyboard } from "@/containers/keyboard";
+import { Trainer } from "@/containers/trainer";
+import { createState } from "@/state";
 
-const TrainingPage = dynamic({
-  loader: () => import("@/pages/training"),
-  ssr: false,
-});
+export async function getStaticProps() {
+  return { props: { initialGlobalState: createState() } };
+}
 
 export default function Page() {
+  const { classes } = useStyles();
+
   return (
-    <Suspense fallback={<LoadingOverlay visible />}>
-      <TrainingPage />
-    </Suspense>
+    <div className={classes.content}>
+      <Trainer />
+      <Keyboard className={classes.keyboard} />
+    </div>
   );
 }
+
+const useStyles = createStyles((theme) => ({
+  content: {
+    width: "100vw",
+    height: "100vh",
+
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    flexDirection: "column",
+  },
+
+  keyboard: {
+    marginTop: parseInt(theme.spacing.lg, 10) * 4,
+  },
+}));

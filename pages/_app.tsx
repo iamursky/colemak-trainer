@@ -2,9 +2,9 @@ import type { AppProps } from "next/app";
 
 import { Fragment } from "react";
 import { MantineProvider } from "@mantine/core";
-import { NotificationsProvider } from "@mantine/notifications";
 import { useColorScheme } from "@mantine/hooks";
 import NextHead from "next/head";
+import { GlobalStateProvider } from "@/state";
 
 export default function App({ Component, pageProps }: AppProps) {
   const colorScheme = useColorScheme();
@@ -19,9 +19,9 @@ export default function App({ Component, pageProps }: AppProps) {
       </NextHead>
 
       <MantineProvider withGlobalStyles withNormalizeCSS theme={{ colorScheme }}>
-        <NotificationsProvider>
+        <GlobalStateProvider initialState={pageProps.initialGlobalState}>
           <Component {...pageProps} />
-        </NotificationsProvider>
+        </GlobalStateProvider>
       </MantineProvider>
     </Fragment>
   );

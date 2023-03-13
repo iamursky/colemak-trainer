@@ -2,9 +2,8 @@ import type { FC } from "react";
 
 import { Button } from "@mantine/core";
 import { createStyles } from "@mantine/core";
-import { useKeyboard } from "@/states/keyboard";
 import { useMemo } from "react";
-import { useTraining } from "@/states/training";
+import { useGlobalState } from "@/state";
 
 export type TKeyboardButtonProps = {
   className?: string;
@@ -13,13 +12,12 @@ export type TKeyboardButtonProps = {
 
 export const KeyboardButton: FC<TKeyboardButtonProps> = ({ className, keyboardKey }) => {
   const { classes, cx } = useStyles();
-  const keyboard = useKeyboard();
-  const training = useTraining();
+  const { state } = useGlobalState();
 
   const highlighted = useMemo(() => {
     if (!keyboardKey) return false;
-    return isHighlighted(keyboardKey, training.key);
-  }, [keyboardKey, training.key]);
+    return isHighlighted(keyboardKey, state.key);
+  }, [keyboardKey, state.key]);
 
   // prettier-ignore
   const buttonClassName = cx(classes.button, {
@@ -28,7 +26,7 @@ export const KeyboardButton: FC<TKeyboardButtonProps> = ({ className, keyboardKe
 
   // prettier-ignore
   const shadowClassName = cx(classes.shadow, {
-    [classes.shadow_active]: isKeyDown(keyboard.keyStates, training.key),
+    [classes.shadow_active]: isKeyDown(state.keyStates, state.key),
     [classes.hidden]: typeof keyboardKey !== "string",
   });
 

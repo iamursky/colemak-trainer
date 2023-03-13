@@ -3,25 +3,25 @@ import type { FC } from "react";
 import { createStyles } from "@mantine/core";
 import { KeyboardButton } from "@/containers/keyboard-button";
 import { useEffect } from "react";
-import { useKeyboard } from "@/states/keyboard";
+import { useGlobalState } from "@/state";
 
 export type TKeyboardProps = {
   className?: string;
 };
 
 export const Keyboard: FC<TKeyboardProps> = ({ className }) => {
+  const { handleKeyDown, handleKeyUp } = useGlobalState();
   const { classes, cx } = useStyles();
-  const keyboard = useKeyboard();
 
   useEffect(() => {
-    document.addEventListener("keydown", keyboard.handleKeyDown);
-    document.addEventListener("keyup", keyboard.handleKeyUp);
+    document.addEventListener("keydown", handleKeyDown);
+    document.addEventListener("keyup", handleKeyUp);
 
     return () => {
-      document.removeEventListener("keydown", keyboard.handleKeyDown);
-      document.removeEventListener("keyup", keyboard.handleKeyUp);
+      document.removeEventListener("keydown", handleKeyDown);
+      document.removeEventListener("keyup", handleKeyUp);
     };
-  });
+  }, [handleKeyDown, handleKeyUp]);
 
   return (
     <div className={cx(classes.keyboard, className)}>
@@ -42,7 +42,7 @@ export const Keyboard: FC<TKeyboardProps> = ({ className }) => {
         <KeyboardButton keyboardKey="X" />
         <KeyboardButton keyboardKey="C" />
         <KeyboardButton keyboardKey="D" />
-        <KeyboardButton />
+        <KeyboardButton keyboardKey="V" />
       </div>
 
       <div className={classes.right}>
@@ -50,7 +50,7 @@ export const Keyboard: FC<TKeyboardProps> = ({ className }) => {
         <KeyboardButton keyboardKey="L" />
         <KeyboardButton keyboardKey="U" />
         <KeyboardButton keyboardKey="Y" />
-        <KeyboardButton keyboardKey="K" />
+        <KeyboardButton />
 
         <KeyboardButton keyboardKey="M" />
         <KeyboardButton keyboardKey="N" />
@@ -58,11 +58,11 @@ export const Keyboard: FC<TKeyboardProps> = ({ className }) => {
         <KeyboardButton keyboardKey="I" />
         <KeyboardButton keyboardKey="O" />
 
-        <KeyboardButton />
+        <KeyboardButton keyboardKey="K" />
         <KeyboardButton keyboardKey="H" />
         <KeyboardButton keyboardKey="," />
         <KeyboardButton keyboardKey="." />
-        <KeyboardButton keyboardKey="V" />
+        <KeyboardButton />
       </div>
     </div>
   );

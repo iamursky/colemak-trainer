@@ -3,24 +3,24 @@ import type { MantineTheme } from "@mantine/core";
 
 import { createStyles, Text } from "@mantine/core";
 import { useEffect } from "react";
-import { useTraining } from "@/states/training";
+import { useGlobalState } from "@/state";
 
 export const Trainer: FC = () => {
   const { classes } = useStyles();
-  const training = useTraining();
+  const { state, handleKeyPress } = useGlobalState();
 
   useEffect(() => {
-    document.addEventListener("keypress", training.handleKeyPress);
-    return () => document.removeEventListener("keypress", training.handleKeyPress);
-  });
+    document.addEventListener("keypress", handleKeyPress);
+    return () => document.removeEventListener("keypress", handleKeyPress);
+  }, [handleKeyPress]);
 
   return (
     <Text className={classes.text}>
-      {training.chars.map((char, index) => (
+      {state.chars.map((char, index) => (
         <Text
           key={`${char}@${index}`}
           className={classes.char}
-          sx={(theme) => ({ color: getCharColor(index, training.index, theme) })}
+          sx={(theme) => ({ color: getCharColor(index, state.index, theme) })}
         >
           {char}
         </Text>
