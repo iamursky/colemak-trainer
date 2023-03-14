@@ -1,7 +1,6 @@
 import type { IGlobalState, TStateAction } from "./types";
 
 import { createState } from "@/state";
-import randomWords from "random-words";
 import { EGlobalStateAction } from "./types";
 
 export function reducer(state: IGlobalState, action: TStateAction) {
@@ -38,16 +37,4 @@ export function reducer(state: IGlobalState, action: TStateAction) {
       if (index >= state.text.length) return createState();
       else return { ...state, index, key: state.text[index] };
   }
-}
-
-export function generateTextAndChars() {
-  const text = randomWords({
-    exactly: 1,
-    join: " ",
-  });
-
-  return {
-    chars: text.split(""),
-    text,
-  };
 }

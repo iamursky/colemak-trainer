@@ -1,16 +1,13 @@
+import "public/css/uikit.min.css";
+
 import type { AppProps } from "next/app";
 
 import { Fragment } from "react";
-import { createEmotionCache, MantineProvider } from "@mantine/core";
-import { useColorScheme } from "@mantine/hooks";
 import NextHead from "next/head";
+import NextScript from "next/script";
 import { GlobalStateProvider } from "@/state";
 
-export const emotionCache = createEmotionCache({ key: "css" });
-
 export default function App({ Component, pageProps }: AppProps) {
-  const colorScheme = useColorScheme();
-
   return (
     <Fragment>
       <NextHead>
@@ -20,16 +17,12 @@ export default function App({ Component, pageProps }: AppProps) {
         <link rel="icon" href="/favicon.ico" />
       </NextHead>
 
-      <MantineProvider
-        withGlobalStyles
-        withNormalizeCSS
-        emotionCache={emotionCache}
-        theme={{ colorScheme }}
-      >
-        <GlobalStateProvider initialState={pageProps.initialGlobalState}>
-          <Component {...pageProps} />
-        </GlobalStateProvider>
-      </MantineProvider>
+      <GlobalStateProvider initialState={pageProps.initialGlobalState}>
+        <Component {...pageProps} />
+      </GlobalStateProvider>
+
+      <NextScript strategy="lazyOnload" src="js/uikit.min.js" />
+      <NextScript strategy="lazyOnload" src="js/uikit-icons.min.js" />
     </Fragment>
   );
 }

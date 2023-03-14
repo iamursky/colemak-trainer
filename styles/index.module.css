@@ -1,0 +1,29 @@
+.content {
+  width: 100vw;
+  height: 100vh;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.text {
+  display: "flex";
+  margin-bottom: 64px;
+}
+
+.keyboard {
+  display: flex;
+  gap: 64px;
+}
+
+.keyboard__left,
+.keyboard__right {
+  width: 272px;
+
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
