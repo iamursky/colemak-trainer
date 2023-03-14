@@ -21,7 +21,7 @@ export function KeyboardButton({ active, keyboardKey }: IKeyboardButtonProps) {
   }, classes.button), [active, isEmpty]);
 
   return (
-    <button type="button" className={buttonClassName}>
+    <button type="button" className={buttonClassName} aria-hidden={isEmpty}>
       {keyboardKey?.toUpperCase()}
     </button>
   );
