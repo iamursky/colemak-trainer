@@ -1,55 +1,42 @@
-import type { FC } from "react";
-
 import { Button } from "@mantine/core";
 import { createStyles } from "@mantine/core";
-import { useMemo } from "react";
-import { useGlobalState } from "@/state";
+import { memo, useMemo } from "react";
 
-export type TKeyboardButtonProps = {
+interface IKeyboardButtonProps {
   className?: string;
   keyboardKey?: string;
-};
-
-export const KeyboardButton: FC<TKeyboardButtonProps> = ({ className, keyboardKey }) => {
-  const { classes, cx } = useStyles();
-  const { state } = useGlobalState();
-
-  const highlighted = useMemo(() => {
-    if (!keyboardKey) return false;
-    return isHighlighted(keyboardKey, state.key);
-  }, [keyboardKey, state.key]);
-
-  // prettier-ignore
-  const buttonClassName = cx(classes.button, {
-    [classes.hidden]: typeof keyboardKey !== "string",
-  }, className);
-
-  // prettier-ignore
-  const shadowClassName = cx(classes.shadow, {
-    [classes.shadow_active]: isKeyDown(state.keyStates, state.key),
-    [classes.hidden]: typeof keyboardKey !== "string",
-  });
-
-  return (
-    <div aria-hidden="true" className={shadowClassName}>
-      <Button
-        type="button"
-        variant={highlighted ? "filled" : "outline"}
-        className={buttonClassName}
-      >
-        {keyboardKey?.toUpperCase()}
-      </Button>
-    </div>
-  );
-};
-
-function isHighlighted(keyboardKey: string, activeKey: string) {
-  return keyboardKey.toLowerCase() === activeKey.toLowerCase();
+  active?: boolean;
 }
 
-function isKeyDown(keyStates: Record<string, boolean>, key: string) {
-  return keyStates[key] || keyStates[key.toUpperCase()];
-}
+export const KeyboardButton = memo<IKeyboardButtonProps>(
+  // eslint-disable-next-line
+  function MemoizedKeyboardButton({ className, keyboardKey, active }) {
+    const { classes, cx } = useStyles();
+
+    const isEmpty = useMemo(() => {
+      return typeof keyboardKey !== "string";
+    }, [keyboardKey]);
+
+    // prettier-ignore
+    const buttonClassName = useMemo(() => cx(classes.button, {
+      [classes.hidden]: isEmpty,
+    }, className), [className, isEmpty]);
+
+    // prettier-ignore
+    const shadowClassName = useMemo(() => cx(classes.shadow, {
+      [classes.shadow_active]: active,
+      [classes.hidden]: isEmpty,
+    }), [active, isEmpty]);
+
+    return (
+      <div aria-hidden="true" className={shadowClassName}>
+        <Button type="button" variant={active ? "filled" : "outline"} className={buttonClassName}>
+          {keyboardKey?.toUpperCase()}
+        </Button>
+      </div>
+    );
+  }
+);
 
 const useStyles = createStyles(() => ({
   button: {
@@ -57,6 +44,7 @@ const useStyles = createStyles(() => ({
     width: "48px",
     height: "48px",
     padding: 0,
+    margin: 0,
   },
 
   shadow: {

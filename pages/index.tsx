@@ -3,10 +3,6 @@ import { Keyboard } from "@/containers/keyboard";
 import { Trainer } from "@/containers/trainer";
 import { createState } from "@/state";
 
-export async function getStaticProps() {
-  return { props: { initialGlobalState: createState() } };
-}
-
 export default function Page() {
   const { classes } = useStyles();
 
@@ -16,6 +12,10 @@ export default function Page() {
       <Keyboard className={classes.keyboard} />
     </div>
   );
+}
+
+export async function getStaticProps() {
+  return { props: { initialGlobalState: createState() } };
 }
 
 const useStyles = createStyles((theme) => ({

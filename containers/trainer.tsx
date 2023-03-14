@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import type { MantineTheme } from "@mantine/core";
 
-import { createStyles, Text } from "@mantine/core";
+import { createStyles, px, Text } from "@mantine/core";
 import { useEffect } from "react";
 import { useGlobalState } from "@/state";
 
@@ -32,7 +32,7 @@ export const Trainer: FC = () => {
 const useStyles = createStyles((theme) => ({
   text: {
     display: "flex",
-    marginBottom: "8px",
+    marginBottom: px(64),
   },
 
   char: {

@@ -12,8 +12,8 @@ export default function App({ Component, pageProps }: AppProps) {
   return (
     <Fragment>
       <NextHead>
-        <title>Typing Men</title>
-        <meta name="description" content="Free open source typing trainer" />
+        <title>Colemak Mod-DH Trainer</title>
+        <meta name="description" content="Free open source Colemak-DH typing trainer" />
         <meta name="viewport" content="minimum-scale=1, initial-scale=1, width=device-width" />
         <link rel="icon" href="/favicon.ico" />
       </NextHead>
