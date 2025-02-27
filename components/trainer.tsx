@@ -1,10 +1,10 @@
 "use client";
 
-import { generateWord } from "@/lib/generate-word";
-import { clsx } from "clsx";
 import { useEffect, useState } from "react";
 
+import { generateWord } from "@/lib/generate-word";
 import { KeyboardButton } from "@/components/keyboard-button";
+import { TrainerWord } from "@/components/trainer-word";
 
 type TrainerProps = {
   initialWord: string;
@@ -32,13 +32,7 @@ export function Trainer({ initialWord }: TrainerProps) {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <p className="text-primary-content mb-16 flex text-4xl">
-        {Array.from(word).map((char, i) => (
-          <span key={`${char}@${i}`} className={clsx({ "text-neutral-content": index <= i })}>
-            {char}
-          </span>
-        ))}
-      </p>
+      <TrainerWord word={word} index={index} className="mb-16" />
 
       <div className="flex gap-16">
         <div className="grid grid-cols-5 grid-rows-3 gap-3">
