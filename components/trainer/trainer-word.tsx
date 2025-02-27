@@ -8,7 +8,7 @@ export type TTrainerWordProps = HTMLProps<HTMLParagraphElement> & {
 };
 
 export const TrainerWord: FC<TTrainerWordProps> = ({ word, index, className, ...props }) => (
-  <p className={clsx("flex", className)} {...props}>
+  <p className={clsx("flex text-neutral-100", className)} {...props}>
     {Array.from(word).map((char, i) => (
       <span key={`${char}@${i}`} className={clsx({ "text-neutral-700": index > i })}>
         {char}

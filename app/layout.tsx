@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html lang="en">
-      <body className="bg-neutral-900 text-neutral-200">
+      <body className="bg-neutral-900 text-neutral-100">
         <GitHub repoUrl="https://github.com/iamursky/colemak-trainer" />
         {children}
       </body>
