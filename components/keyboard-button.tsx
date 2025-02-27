@@ -2,6 +2,8 @@ import type { ReactNode } from "react";
 
 import clsx from "clsx";
 
+import { Button } from "@/components/ui/button";
+
 type ButtonProps = {
   children?: ReactNode;
   active?: boolean;
@@ -9,8 +11,8 @@ type ButtonProps = {
 
 export function KeyboardButton({ children, active }: ButtonProps) {
   return (
-    <kbd className={clsx("kbd kbd-lg", { "scale-125 text-primary-content": active })}>
+    <Button size="icon" className={clsx({ "scale-125": active })}>
       {children}
-    </kbd>
+    </Button>
   );
 }

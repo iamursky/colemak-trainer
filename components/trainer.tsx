@@ -1,9 +1,10 @@
 "use client";
 
-import { generateWord } from "@/lib/generator";
+import { generateWord } from "@/lib/generate-word";
 import { clsx } from "clsx";
-import { useCallback, useEffect, useState } from "react";
-import { KeyboardButton } from "./button";
+import { useEffect, useState } from "react";
+
+import { KeyboardButton } from "@/components/keyboard-button";
 
 type TrainerProps = {
   initialWord: string;
@@ -13,8 +14,8 @@ export function Trainer({ initialWord }: TrainerProps) {
   const [word, setWord] = useState<string>(initialWord);
   const [index, setIndex] = useState<number>(0);
 
-  const handleKeyPress = useCallback(
-    (e: KeyboardEvent) => {
+  useEffect(() => {
+    function handleKeyPress(e: KeyboardEvent) {
       if (e.key !== word[index]) return;
 
       const nextIndex = index + 1;
@@ -23,18 +24,15 @@ export function Trainer({ initialWord }: TrainerProps) {
         setIndex(0);
         setWord(generateWord());
       } else setIndex(nextIndex);
-    },
-    [word, index]
-  );
+    }
 
-  useEffect(() => {
     document.addEventListener("keypress", handleKeyPress);
     return () => document.removeEventListener("keypress", handleKeyPress);
-  }, [handleKeyPress]);
+  });
 
   return (
-    <div className="w-screen h-screen flex items-center justify-center flex-col">
-      <p className="text-primary-content flex mb-16 text-4xl">
+    <div className="flex h-screen w-screen flex-col items-center justify-center">
+      <p className="text-primary-content mb-16 flex text-4xl">
         {Array.from(word).map((char, i) => (
           <span key={`${char}@${i}`} className={clsx({ "text-neutral-content": index <= i })}>
             {char}
