@@ -4,5 +4,9 @@ import { generateWord } from "@/lib/generate-word";
 export default function Home() {
   const initialWord = generateWord();
 
-  return <Trainer initialWord={initialWord} />;
+  return (
+    <div className="flex h-screen w-screen flex-col items-center justify-center">
+      <Trainer initialWord={initialWord} />
+    </div>
+  );
 }

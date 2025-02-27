@@ -31,7 +31,7 @@ export function Trainer({ initialWord }: TrainerProps) {
   });
 
   return (
-    <div className="flex h-screen w-screen flex-col items-center justify-center">
+    <div className="flex flex-col items-center justify-center">
       <p className="text-primary-content mb-16 flex text-4xl">
         {Array.from(word).map((char, i) => (
           <span key={`${char}@${i}`} className={clsx({ "text-neutral-content": index <= i })}>
