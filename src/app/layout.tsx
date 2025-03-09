@@ -1,8 +1,7 @@
 import "./globals.css";
 
 import type { Metadata } from "next";
-
-import { PropsWithChildren } from "react";
+import type { PropsWithChildren } from "react";
 
 import { GitHub } from "@/components/github";
 
