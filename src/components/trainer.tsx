@@ -1,22 +1,18 @@
 "use client";
 
 import type { FC, HTMLProps } from "react";
-import type { TTrainerLayout } from "@/types";
 
 import { generateWord } from "@/utils";
-import { LAYOUTS_MATRICES } from "@/constants";
+import { LAYOUT_MATRIX } from "@/constants";
 import { TrainerKeyboardButton } from "@/components/trainer-keyboard-button";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import clsx from "clsx";
 
 export type TTrainerProps = HTMLProps<HTMLDivElement> & {
   initialWord: string;
-  layout: TTrainerLayout;
 };
 
-export const Trainer: FC<TTrainerProps> = ({ initialWord, layout, className, ...props }) => {
-  const layoutMatrix = useMemo(() => LAYOUTS_MATRICES[layout], [layout]);
-
+export const Trainer: FC<TTrainerProps> = ({ initialWord, className, ...props }) => {
   const [word, setWord] = useState<string>(initialWord);
   const [index, setIndex] = useState<number>(0);
 
@@ -49,7 +45,7 @@ export const Trainer: FC<TTrainerProps> = ({ initialWord, layout, className, ...
       </p>
 
       <div className="flex gap-16">
-        {layoutMatrix.map((hand, handIndex) => (
+        {LAYOUT_MATRIX.map((hand, handIndex) => (
           <div key={handIndex} className="grid grid-cols-5 grid-rows-3 gap-3">
             {hand.map((key, keyIndex) => (
               <TrainerKeyboardButton

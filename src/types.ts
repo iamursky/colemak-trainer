@@ -1,3 +1,36 @@
-export type TTrainerLayout = "colemak-dh" | "qwerty";
-
-export type TTrainerLayoutMatrix = [string[], string[]];
+export type TTrainerLayoutMatrix = [
+  [
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+  ],
+  [
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+    string,
+  ],
+];
