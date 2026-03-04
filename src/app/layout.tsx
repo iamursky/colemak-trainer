@@ -8,6 +8,7 @@ import { GitHub } from "@/components/github";
 export const metadata: Metadata = {
   title: "Colemak Mod-DH Trainer",
   description: "Free open source Colemak-DH typing trainer",
+  keywords: ["colemak mod-dh", "colemak trainer", "ortholinear keyboard", "typing trainer"],
 };
 
 export default function RootLayout({ children }: PropsWithChildren) {

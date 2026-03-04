@@ -1,5 +1,5 @@
-import { generateWord } from "@/utils";
 import { Trainer } from "@/components/trainer";
+import { generateWord } from "@/utils/generateWord";
 
 export default function HomePage() {
   const initialWord = generateWord();

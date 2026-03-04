@@ -1,16 +1,14 @@
-# Dependencies
-.yarn/
-node_modules/
-yarn-debug.log*
-yarn-error.log*
-
-# next.js
-.next/
-out/
-
 # System Files
 .DS_Store
-*.pem
+Thumbs.db
+
+# NPM
+node_modules/
+npm-debug.log*
+
+# Next.js
+.next/
+out/
 
 # TypeScript
 *.tsbuildinfo

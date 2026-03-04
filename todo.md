@@ -1,3 +1,0 @@
-- Reward for each typed word
-- Analyze how much time was spent on each letter
-- Remember mistakes (wrong letters)
